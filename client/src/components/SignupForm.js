@@ -7,6 +7,7 @@ import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 const SignupForm = () => {
+  const [createUser, { error, data }] = useMutation(ADD_USER);
   // set initial form state
   const [userFormData, setUserFormData] = useState({
     username: "",
@@ -22,8 +23,6 @@ const SignupForm = () => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
-
-  const [createUser, { error }] = useMutation(ADD_USER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
