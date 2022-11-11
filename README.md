@@ -10,4 +10,4 @@ A full-stack book search engine app using MERN stack
 
 ## Link to deployed App
 
-[Deployed app link]("google.com/")
+[Deployed app link]("https://whispering-bastion-35182.herokuapp.com/")
