@@ -48,11 +48,11 @@ const SavedBooks = () => {
       console.error(err);
     }
   };
-
+  console.log(loading);
   // if data isn't here yet, say so
-  // if (!userDataLength) {
-  //   return <h2>LOADING...</h2>;
-  // }
+  if (loading) {
+    return <h2>LOADING...</h2>;
+  }
 
   return (
     <>
