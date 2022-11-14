@@ -17,12 +17,17 @@ import { removeBookId } from "../utils/localStorage";
 const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
   const userData = data?.me || [];
-  console.log(userData);
+  // console.log(userData);
 
   // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
+  // const userDataLength = Object.keys(userData).length;
 
-  const [removeBook] = useMutation(REMOVE_BOOK);
+  const [removeBook] = useMutation(REMOVE_BOOK, {
+    refetchQueries: [
+      { query: GET_ME }, // DocumentNode object parsed with gql
+      "me", // Query name
+    ],
+  });
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -31,13 +36,18 @@ const SavedBooks = () => {
       return false;
     }
     console.log(bookId);
+    try {
+      const response = await removeBook({
+        variables: { bookId: bookId, token },
+      });
 
-    const response = await removeBook({
-      variables: { bookId: bookId },
-    });
-    console.log(response);
-    // upon success, remove book's id from localStorage
-    removeBookId(bookId);
+      console.log(response);
+
+      // upon success, remove book's id from localStorage
+      removeBookId(bookId);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // if data isn't here yet, say so
