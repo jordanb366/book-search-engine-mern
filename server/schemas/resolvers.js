@@ -9,7 +9,7 @@ const resolvers = {
   Query: {
     // get a single user by either their id or their username
     me: async (parent, args, context) => {
-      console.log(context);
+      // console.log(context);
       if (context.user) {
         return User.findOne({ _id: context.user._id });
       }
