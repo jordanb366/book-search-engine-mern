@@ -13,4 +13,4 @@ This is a full-stack book search engine app using MERN stack. The MERN app was o
 
 ## Link to deployed App
 
-[Deployed app link]("https://whispering-bastion-35182.herokuapp.com/")
+[Deployed app link](https://whispering-bastion-35182.herokuapp.com/)
