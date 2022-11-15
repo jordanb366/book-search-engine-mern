@@ -7,9 +7,8 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   // Queries
   Query: {
-    // get a single user by either their id or their username
+    // get a single user by their id through the context.user
     me: async (parent, args, context) => {
-      // console.log(context);
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate("savedBooks");
       }
@@ -18,11 +17,13 @@ const resolvers = {
   },
   //   Mutations
   Mutation: {
+    // Add user mution on sign up
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
+    // login user upon login form
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -40,6 +41,7 @@ const resolvers = {
 
       return { token, user };
     },
+    // Saves the, needs bookId, authors, description, title and image, link
     saveBook: async (
       parent,
       { bookId, authors, description, title, image, link },
@@ -60,6 +62,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    // Removes book by the bookId
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(

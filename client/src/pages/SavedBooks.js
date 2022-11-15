@@ -15,6 +15,7 @@ import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
+  // useQuery to get user data from the get_me query
   const { loading, data } = useQuery(GET_ME);
   const userData = data?.me || [];
   // console.log(userData);
@@ -22,11 +23,10 @@ const SavedBooks = () => {
   // use this to determine if `useEffect()` hook needs to run again
   // const userDataLength = Object.keys(userData).length;
 
+  // Remove book useMutation
   const [removeBook] = useMutation(REMOVE_BOOK, {
-    refetchQueries: [
-      { query: GET_ME }, // DocumentNode object parsed with gql
-      "me", // Query name
-    ],
+    // refetches the query when a book is removed
+    refetchQueries: [{ query: GET_ME }, "me"],
   });
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -37,6 +37,7 @@ const SavedBooks = () => {
     }
     console.log(bookId);
     try {
+      // uses the removeBook use mutation
       const { data } = await removeBook({
         variables: { bookId },
       });
@@ -55,6 +56,7 @@ const SavedBooks = () => {
   //   return <h2>LOADING...</h2>;
   // }
 
+  // Loading from the get_me query
   if (loading) {
     return <div>Loading...</div>;
   }

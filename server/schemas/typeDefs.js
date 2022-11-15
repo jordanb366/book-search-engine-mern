@@ -1,5 +1,5 @@
 const { gql } = require("apollo-server-express");
-
+// All typeDefs, user type, book type, auth type and query me with user type. along with the mutations
 const typeDefs = gql`
   type User {
     _id: ID
