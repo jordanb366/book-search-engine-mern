@@ -10,6 +10,7 @@ This is a full-stack book search engine app using MERN stack. The MERN app was o
 
 ![Screenshot1](./docs/Assets/Screenshot1.png)
 ![Screenshot2](./docs/Assets/Screenshot2.png)
+![Screenshot3](./docs/Assets/Screenshot3.png)
 
 ## Link to deployed App
 
